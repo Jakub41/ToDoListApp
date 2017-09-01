@@ -8,6 +8,10 @@ var TaskSchema = new Schema({
         type: String,
         required: 'Please enter the name of the task'
     },
+    note: {
+        type: String,
+        //required: 'Please enter a note about your task'
+    },
     CreatedDate: {
         type: Date,
         default: Date.now
@@ -19,6 +23,7 @@ var TaskSchema = new Schema({
         }],
         default: ['pending']
     }
+
 });
 
 module.exports = mongoose.model('Tasks', TaskSchema);
