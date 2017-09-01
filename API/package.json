@@ -1,11 +1,18 @@
 {
-  "name": "todo-api",
-  "version": "1.0.0",
-  "description": "nodejs api for a todo app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Jakub Lemiszewski",
-  "license": "ISC"
+    "name": "todo-api",
+    "version": "1.0.0",
+    "description": "nodejs api for a todo app",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "author": "Jakub Lemiszewski",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^1.11.0"
+    },
+    "dependencies": {
+        "express": "^4.15.4"
+    }
 }
