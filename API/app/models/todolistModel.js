@@ -1,9 +1,9 @@
-// Model Schema For MongoDB
+// Model Task Schema For MongoDB
 'use strict';
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var TaskSchema = new Schema({
+const TaskSchema = new Schema({
     name: {
         type: String,
         required: 'Please enter the name of the task'
