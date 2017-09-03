@@ -1,25 +1,83 @@
-var express = require('express'),
-    app = express(),
-    port = process.env.PORT || 3000;
-mongoose = require('mongoose');
-Task = require('./app/models/todolistModel'); // Model Loading Here
-bodyParser = require('body-parser');
+'use strict';
+if (
+    process.env.NODE_ENV !== 'development' &&
+    process.env.NODE_ENV !== 'production'
+) {
+    console.log(
+        `Please specify one of the following environments to run your server
+            - development
+            - production
+            
+    Example : NODE_ENV=development pm2 start server.js`
+    );
+    throw 'abc';
+    return '';
+}
 
-// Mongoose URL Connection
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Tododb');
+process.env.NODE_CONFIG_DIR = __dirname + '/config/';
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-var routes = require('./app/routes/todolistRoutes'); // Importing routes
-routes(app); // Register the route
-
-app.use(function(req, res) {
-    res.status(404).send({ url: req.originalUrl + ' not found' });
-    // Added a Middleware for interactive message for an error
+/* Node Modlules */
+const Hapi = require('hapi');
+const config = require('config');
+const path = require('path');
+const promise = require('bluebird');
+const Plugins = require('./Plugins');
+const Routes = require('./Routes');
+const Controllers = require('./Controllers');
+// Create Server
+let server = new Hapi.Server({
+    app: {
+        name: 'Provide app name'
+    }
 });
 
-app.listen(port);
+global.Promise = promise;
+global.server = server;
+server.connection({
+    host: config.get('host'),
+    port: config.get('port'),
+    routes: {
+        cors: {
+            origin: ['*'],
+            additionalHeaders: []
+        }
+    }
+});
 
-console.log('todo list RESTful API server started on: ' + port);
+// Register All Plugins
+server.register(Plugins, function(err) {
+    if (err) {
+        Logger.winstonLogger.error(err);
+        server.error('Error while loading plugins : ' + err);
+    } else {
+
+        server.log('Plugins Loaded');
+    }
+});
+
+// Default Routes
+server.route({
+    method: 'GET',
+    path: '/ping',
+    handler: function(request, reply) {
+            reply(200, {
+                pong: true
+            }).code(200);
+        }
+        /* config: {
+             cors: {
+                 origin: ['*'],
+                 additionalHeaders: ['cache-control', 'x-requested-with']
+             }
+         }*/
+});
+
+//API Routes
+server.route(Routes);
+
+server.on('response', function(request) {});
+
+//Start Server
+server.start(function() {
+    console.log('Server running at: ' + server.info.uri);
+});
