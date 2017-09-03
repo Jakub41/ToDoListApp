@@ -13,11 +13,13 @@
         "nodemon": "^1.11.0"
     },
     "dependencies": {
+        "bcrypt": "^1.0.3",
         "bluebird": "^3.5.0",
         "config": "^1.26.2",
         "express": "^4.15.4",
         "hapi": "^16.5.2",
         "hapi-swagger": "^7.7.1",
+        "hapi-swagger-next": "^1.0.0",
         "inert": "^4.2.1",
         "joi": "^10.6.0",
         "mongoose": "^4.11.9",
