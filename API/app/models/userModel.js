@@ -31,10 +31,10 @@ const user = new Schema({
     access_token: {
         type: String,
         required: true,
-        index: true
+        index: true //creates access_token as index
     }
 }, {
-    timestamps: true
+    timestamps: true //inserts createdAt and updatedAt
 });
 
 module.exports = mongoose.model('user', user);
