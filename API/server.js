@@ -8,22 +8,22 @@ if (
             - development
             - production
             
-    Example : NODE_ENV=development pm2 start server.js`
+    Example : NODE_ENV=development npm start server.js`
     );
     throw 'abc';
     return '';
 }
 
-process.env.NODE_CONFIG_DIR = __dirname + '/config/';
+process.env.NODE_CONFIG_DIR = __dirname + './app/config/';
 
 /* Node Modlules */
 const Hapi = require('hapi');
 const config = require('config');
 const path = require('path');
 const promise = require('bluebird');
-const Plugins = require('./Plugins');
-const Routes = require('./Routes');
-const Controllers = require('./Controllers');
+const Plugins = require('./app/plugins');
+const Routes = require('./app/routes');
+const Controllers = require('./app/controllers');
 // Create Server
 let server = new Hapi.Server({
     app: {
