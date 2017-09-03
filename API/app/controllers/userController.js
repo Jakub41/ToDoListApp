@@ -104,3 +104,74 @@ function loginUser(request, reply) {
         }
     });
 }
+
+
+/**
+ * Get user details using Access Token
+ * @param  {function} request
+ * @param  {function} reply
+ */
+function getUser(request, reply) {
+    return new Promise((resolve, reject) => {
+        let filters = {
+            access_token: request.headers.authorization
+        }
+        User.find(filters)
+            .then(user => {
+                if (user.length === 0) {
+                    let response = {
+                        flag: statusCodes.UNAUTHORIZED,
+                        message: statusCodes.getStatusText(statusCodes.UNAUTHORIZED),
+                        description: 'Invalid token'
+                    }
+                    return resolve(response);
+                }
+                let response = {
+                    flag: statusCodes.OK,
+                    message: statusCodes.getStatusText(statusCodes.OK),
+                    user: user[0]
+                }
+                return resolve(response);
+            })
+            .catch(error => {
+                return reject(error);
+            });
+    })
+}
+/**
+ * Logout user using access token
+ * Access token is destroyed on logout
+ * @param  {function} request
+ * @param  {function} reply
+ */
+function logoutUser(request, reply) {
+    return new Promise((resolve, reject) => {
+        let filters = {
+            access_token: request.headers.authorization
+        }
+        let updateInfo = {
+            access_token: null
+        }
+        User.findOneAndUpdate(filters, updateInfo)
+            .then(user => {
+
+                if (!user) {
+                    let response = {
+                        flag: statusCodes.UNAUTHORIZED,
+                        message: statusCodes.getStatusText(statusCodes.UNAUTHORIZED),
+                        description: 'Invalid token'
+                    }
+                    return resolve(response);
+                }
+                let response = {
+                    flag: statusCodes.OK,
+                    message: statusCodes.getStatusText(statusCodes.OK),
+                    description: 'Logged out successfully'
+                }
+                return resolve(response);
+            })
+            .catch(error => {
+                return reject(error);
+            });
+    })
+}
