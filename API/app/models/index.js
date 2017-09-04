@@ -3,5 +3,5 @@
 
 module.exports = [{
     User: require('./userModel'),
-    Task: require('./todolistModel')
+    Task: require('./taskModel')
 }];
