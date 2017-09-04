@@ -36,3 +36,5 @@ const task = new Schema({
 }, {
     timestamps: true // inserts createdAt and updatedAt
 });
+
+module.exports = mongoose.model('task', task);
