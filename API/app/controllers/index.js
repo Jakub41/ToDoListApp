@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-    dbConfig: require('./dbConfig'),
+    dbConfig: require('../config/dbConfig'),
     userController: require('./userController')
 };
