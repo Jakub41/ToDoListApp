@@ -8,13 +8,13 @@ if (
             - development
             - production
             
-    Example : NODE_ENV=development npm start server.js`
+    Example : NODE_ENV=development nodemon server.js`
     );
     throw 'abc';
     return '';
 }
 
-process.env.NODE_CONFIG_DIR = __dirname + './app/config/';
+process.env.NODE_CONFIG_DIR = __dirname + '/app/config/';
 
 /* Node Modlules */
 const Hapi = require('hapi');

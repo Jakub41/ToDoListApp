@@ -8,7 +8,7 @@ const Logger = require('../lib/logger');
 mongoose.Promise = Promise;
 global.Mongoose = mongoose;
 
-let uri = config.get('mongoDb.uri');
+let uri = config.get('mongoDb.URI');
 
 //Connect to MongoDB
 exports.connection = mongoose.connect(
@@ -21,7 +21,8 @@ exports.connection = mongoose.connect(
         console.log('MongoDB Connected');
     })
     .catch(err => {
-        Logger.winstonLogger.error(err);
-        console.log('DB error: ', err);
+        Logger.winstonLogger.error({
+            ERROR: err
+        });
         process.exit(1);
     });

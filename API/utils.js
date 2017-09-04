@@ -27,7 +27,7 @@ function sendSuccessResponse(response, res) {
     if (!response.message)
         response.message = statusCodes.getStatusText(statusCodes.OK);
 
-    return res(response)
+    return res(response);
 }
 
 /**
@@ -70,4 +70,4 @@ function failActionFunction(request, reply, source, error) {
     error.output.payload.message = customErrorMessage;
     delete error.output.payload.validation;
     return reply(error);
-}
+};

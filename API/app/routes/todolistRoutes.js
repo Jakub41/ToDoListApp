@@ -1,7 +1,7 @@
 'use strict';
-let Controller = require('../app/Controllers/index').userController;
+let Controller = require('../controllers/index').userController;
 let Joi = require('joi');
-let constants = require('../app/config/constants');
+let constants = require('../config/constants');
 let utils = require('../../utils');
 let Logger = require('../lib/logger');
 
