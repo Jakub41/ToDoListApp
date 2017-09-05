@@ -22,7 +22,7 @@ exports.logoutUser = logoutUser;
  */
 function registerUser(request, reply) {
     return new Promise((resolve, reject) => {
-        let userInfo = request.playload;
+        let userInfo = request.payload;
         userInfo.access_token = uuidv1();
         if (userInfo.password)
             userInfo.password = bcrypt.hashSync(
