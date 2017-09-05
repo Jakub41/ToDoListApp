@@ -70,6 +70,11 @@ function postTask(request, reply) {
     });
 }
 
+/**
+ * Get task of a user
+ * @param  {function} request
+ * @param  {function} reply
+ */
 function getTask(request, reply) {
     return new Promise((resolve, reject) => {
         let access_token = request.headers.authorization;
@@ -93,9 +98,91 @@ function getTask(request, reply) {
             });
 
         async function runner() {
-
+            let userFilters = {
+                access_token: access_token
+            };
+            let userArr = await User.find(userFilters);
+            if (user.length === 0) {
+                let response = {
+                    flag: statusCodes.UNAUTHORIZED,
+                    message: statusCodes.getStatusText(statusCodes.UNAUTHORIZED),
+                    description: 'Invalid token'
+                };
+                return response;
+            }
+            let user = userArr[0];
+            taskFilters.userId = user._id;
+            let taskArr = await Task.find(taskFilters).limit(limit).skip(skip);
+            // Get notes of the task
+            let noteArr;
+            if (taskArr.length > 0) {
+                let taskIdArr = [];
+                taskArr.forEach(task => {
+                    taskIdArr.push(task._id);
+                });
+                let noteFilter = {
+                    taskId: {
+                        "$in": taskIdArr
+                    },
+                    isDeleted: false,
+                    isCompleted: false
+                };
+                noteArr = await Note.find(noteFilter);
+            }
+            let response = {
+                flag: statusCodes.OK,
+                message: statusCodes.getStatusText(statusCodes.OK),
+                taskArr: taskArr,
+                noteArr: noteArr
+            }
+            return response;
         }
     });
 }
 
-function putTask() {}
+/**
+ * Update Task Details
+ * @param  {function} request
+ * @param  {function} reply
+ */
+function putTask() {
+    return new Promise((resolve, reject) => {
+        let access_token = request.headers.authorization;
+        let taskFilters = {
+            _id: request.payload.taskId
+        };
+        delete request.payload.taskId
+        runner()
+            .then(response => {
+                resolve(response);
+            })
+            .catch(error => {
+                reject(error);
+            })
+
+        async function runner() {
+            let userFilters = {
+                access_token: access_token
+            }
+            let userArr = await User.find(userFilters);
+            if (userArr.length === 0) {
+                let response = {
+                    flag: statusCodes.UNAUTHORIZED,
+                    message: statusCodes.getStatusText(statusCodes.UNAUTHORIZED),
+                    description: 'Invalid token'
+                }
+                return response;
+            }
+            let user = userArr[0];
+            taskFilters.userId = user._id;
+            let updateInfo = request.payload;
+            await Task.findOneAndUpdate(taskFilters, updateInfo);
+            let response = {
+                flag: statusCodes.ACCEPTED,
+                message: statusCodes.getStatusText(statusCodes.ACCEPTED),
+                description: 'Task updated successfully'
+            }
+            return response;
+        }
+    })
+}
