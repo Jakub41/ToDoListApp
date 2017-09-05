@@ -69,3 +69,33 @@ function postTask(request, reply) {
         }
     });
 }
+
+function getTask(request, reply) {
+    return new Promise((resolve, reject) => {
+        let access_token = request.headers.authorization;
+        let limit = request.query.limit || 10;
+        let skip = request.query.skip || 0;
+        delete request.request.query.limit;
+        delete request.query.skip;
+        let taskFilters = request.query || {};
+
+        if (taskFilters.taskId) {
+            taskFilters._id = taskFilters.taskId;
+            delete taskFilters.taskId;
+        }
+
+        runner()
+            .then(response => {
+                resolve(response);
+            })
+            .catch(error => {
+                reject(error);
+            });
+
+        async function runner() {
+
+        }
+    });
+}
+
+function putTask() {}
