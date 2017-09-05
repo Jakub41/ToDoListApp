@@ -2,5 +2,7 @@
 
 module.exports = {
     dbConfig: require('../config/dbConfig'),
-    userController: require('./userController')
+    userController: require('./userController'),
+    taskController: require('./taskController'),
+    noteController: require('./noteController')
 };
