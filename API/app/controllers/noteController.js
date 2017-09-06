@@ -5,10 +5,10 @@ const uuidv1 = require('uuid/v1');
 const bcrypt = require('bcrypt');
 const utils = require('../../utils');
 
-const Task = require('../models/Task');
-const User = require('../models/User');
-const Note = require('../models/Note');
-const Logger = require('../libs/logger');
+const Task = require('../models/taskModel');
+const User = require('../models/userModel');
+const Note = require('../models/noteModel');
+const Logger = require('../lib/logger');
 const Constants = require('../config/constants');
 const statusCodes = require('../config/statusCodes');
 
