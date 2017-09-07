@@ -80,7 +80,7 @@ function getTask(request, reply) {
         let access_token = request.headers.authorization;
         let limit = request.query.limit || 10;
         let skip = request.query.skip || 0;
-        delete request.request.query.limit;
+        delete request.query.limit;
         delete request.query.skip;
         let taskFilters = request.query || {};
 
@@ -102,7 +102,7 @@ function getTask(request, reply) {
                 access_token: access_token
             };
             let userArr = await User.find(userFilters);
-            if (user.length === 0) {
+            if (userArr.length === 0) {
                 let response = {
                     flag: statusCodes.UNAUTHORIZED,
                     message: statusCodes.getStatusText(statusCodes.UNAUTHORIZED),
@@ -145,7 +145,7 @@ function getTask(request, reply) {
  * @param  {function} request
  * @param  {function} reply
  */
-function putTask() {
+function putTask(request, reply) {
     return new Promise((resolve, reject) => {
         let access_token = request.headers.authorization;
         let taskFilters = {
