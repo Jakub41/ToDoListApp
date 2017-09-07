@@ -59,7 +59,6 @@ function sendErrorResponse(error, res) {
     res(response);
 }
 
-
 function failActionFunction(request, reply, source, error) {
     let customErrorMessage = '';
     if (error.output.payload.message.indexOf("[") > -1) {
@@ -67,6 +66,7 @@ function failActionFunction(request, reply, source, error) {
     } else {
         customErrorMessage = error.output.payload.message;
     }
+
     customErrorMessage = customErrorMessage.replace(/"/g, '');
     customErrorMessage = customErrorMessage.replace('[', '');
     customErrorMessage = customErrorMessage.replace(']', '');

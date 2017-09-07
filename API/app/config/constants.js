@@ -63,5 +63,6 @@ module.exports = {
                 }).label('Response')
             }
         };
-    }
+    },
+    saltRounds: 10 // salt rounds for Bcrypt
 };

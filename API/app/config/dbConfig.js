@@ -1,5 +1,4 @@
-// DB Config MongoDB
-'use strict';
+'user strict';
 
 const mongoose = require('mongoose');
 const config = require('config');
@@ -8,17 +7,15 @@ const Logger = require('../lib/logger');
 mongoose.Promise = Promise;
 global.Mongoose = mongoose;
 
-let uri = config.get('mongoDb.URI');
+let uri = config.get('mongoDb.URI'); //get MongoDb URI from .json
 
 //Connect to MongoDB
-exports.connection = mongoose.connect(
-        uri, {
-            useMongoClient: true
-        }
-    )
+exports.connection = mongoose.connect(uri, {
+        useMongoClient: true
+    })
     .then(success => {
         mongoose.set('debug', true);
-        console.log('MongoDB Connected');
+        Logger.winstonLogger.info('MongoDB Connected')
     })
     .catch(err => {
         Logger.winstonLogger.error({
