@@ -13,7 +13,7 @@ const winstonLogger = new(winston.Logger)({
         new(winston.transports.Console)({
             timestamp: tsFormat,
             colorize: true,
-            level: 'info' // level of log
+            level: 'verbose' // level of log
         })
     ]
 });
