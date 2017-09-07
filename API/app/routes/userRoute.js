@@ -14,14 +14,14 @@ module.exports = [{
                     Logger.winstonLogger.info({
                         RESPONSE: response
                     });
-                    return utils.sendSuccessResponse(response, reply);
+                    return utils.sendSuccessResponse(response, reply)
                 })
                 .catch(error => {
                     Logger.winstonLogger.error({
                         ERROR: error
                     });
                     return utils.sendErrorResponse(error, reply);
-                });
+                })
         },
         config: {
             description: 'Register User',
@@ -52,7 +52,7 @@ module.exports = [{
                     Logger.winstonLogger.info({
                         RESPONSE: response
                     });
-                    return utils.sendSuccessResponse(response, reply);
+                    return utils.sendSuccessResponse(response, reply)
                 })
                 .catch(error => {
                     Logger.winstonLogger.error({
@@ -88,7 +88,7 @@ module.exports = [{
                     Logger.winstonLogger.info({
                         RESPONSE: response
                     });
-                    return utils.sendSuccessResponse(response, reply);
+                    return utils.sendSuccessResponse(response, reply)
                 })
                 .catch(error => {
                     Logger.winstonLogger.error({

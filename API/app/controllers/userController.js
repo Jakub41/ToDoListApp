@@ -24,11 +24,9 @@ function registerUser(request, reply) {
     return new Promise((resolve, reject) => {
         let userInfo = request.payload;
         userInfo.access_token = uuidv1();
-        if (userInfo.password)
-            userInfo.password = bcrypt.hashSync(
-                userInfo.password,
-                Constants.saltRounds
-            );
+        if (userInfo.password) {
+            userInfo.password = bcrypt.hashSync(userInfo.password, Constants.saltRounds)
+        }
 
         User(userInfo).save()
             .then(success => {
@@ -63,11 +61,12 @@ function loginUser(request, reply) {
 
         async function runner() {
             let filters = {};
-            if (payload.username)
+            if (payload.username) {
                 filters.username = payload.username;
-
-            if (payload.email)
+            }
+            if (payload.email) {
                 filters.email = payload.email;
+            }
 
             let userArr = await User.find(filters);
             if (userArr.length === 0) {
@@ -75,11 +74,14 @@ function loginUser(request, reply) {
                     flag: statusCodes.NOT_FOUND,
                     message: statusCodes.getStatusText(statusCodes.NOT_FOUND),
                     description: 'Username or email does not exist'
-                }
+                };
                 return response;
             }
             let user = userArr[0];
             if (user.password) {
+                if (!payload.password) {
+                    payload.password = "";
+                }
                 let checkPassword = bcrypt.compareSync(payload.password, user.password);
                 if (!checkPassword) {
                     let response = {

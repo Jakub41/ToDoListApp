@@ -67,7 +67,7 @@ function postNote(request, reply) {
                     flag: statusCodes.NOT_ACCEPTABLE,
                     message: statusCodes.getStatusText(statusCodes.NOT_ACCEPTABLE),
                     description: 'Task is deleted'
-                }
+                };
                 return response;
             }
             // Check if task is completed

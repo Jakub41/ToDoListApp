@@ -21,12 +21,12 @@ module.exports = {
  * @param  {stream} res         express res stream
  */
 function sendSuccessResponse(response, res) {
-    if (!response.flag)
-        response.flag = statusCodes.OK;
-
-    if (!response.message)
+    if (!response.flag) {
+        response.flag = statusCodes.OK
+    }
+    if (!response.message) {
         response.message = statusCodes.getStatusText(statusCodes.OK);
-
+    }
     return res(response);
 }
 
@@ -36,38 +36,41 @@ function sendSuccessResponse(response, res) {
  * @param  {stream} res         express res stream
  */
 function sendErrorResponse(error, res) {
-    if (!response.flag)
-        response.flag = statusCodes.METHOD_FAILURE;
-
-    if (!response.message)
-        response.message || statusCodes.getStatusText(statusCodes.METHOD_FAILURE);
-
+    if (!error.responseFlag) {
+        error.responseFlag = statusCodes.METHOD_FAILURE;
+    }
+    if (!error.responseMessage) {
+        error.responseMessage =
+            error.message ||
+            statusCodes.getStatusText(statusCodes.METHOD_FAILURE);
+    }
     let response = {
         flag: error.responseFlag,
         message: error.responseMessage
     };
-
-    if (error.addInfo)
-        for (let key in error.addInfo) {
-            response[key] = error.addInfo[key];
+    if (error.addnInfo) {
+        for (let key in error.addnInfo) {
+            response[key] = error.addnInfo[key];
         }
-
-    Logger.winstonLogger.error(error);
+    }
+    Logger.winstonLogger.error({
+        ERROR: error
+    });
     res(response);
 }
 
+
 function failActionFunction(request, reply, source, error) {
     let customErrorMessage = '';
-
-    if (error.output.payload.message.indexOf('[') > -1)
+    if (error.output.payload.message.indexOf("[") > -1) {
         customErrorMessage = error.output.payload.message.substr(error.output.payload.message.indexOf("["));
-
-    customErrorMessage = error.output.payload.message;
-
+    } else {
+        customErrorMessage = error.output.payload.message;
+    }
     customErrorMessage = customErrorMessage.replace(/"/g, '');
     customErrorMessage = customErrorMessage.replace('[', '');
     customErrorMessage = customErrorMessage.replace(']', '');
     error.output.payload.message = customErrorMessage;
     delete error.output.payload.validation;
     return reply(error);
-}
+};

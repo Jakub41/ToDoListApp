@@ -5,10 +5,9 @@ const Joi = require('joi');
 
 // Added error handler Swagger + Joi for validation 
 module.exports = {
-    swaggerDefaultResponseMessages: function(list = '') {
+    swaggerDefaultResponseMessages: function() {
+        //Default Messages for Swagger
         let successResponse;
-        if (list == 'list')
-            successResponse = Joi.object({ list: Joi.array().items(Joi.object()), count: Joi.number() });
 
         successResponse = Joi.object({ key: 'value' });
 

@@ -21,9 +21,12 @@ const Hapi = require('hapi');
 const config = require('config');
 const path = require('path');
 const promise = require('bluebird');
+
 const Plugins = require('./app/plugins');
 const Routes = require('./app/routes');
 const Controllers = require('./app/controllers');
+const Logger = require('./app/lib/logger');
+
 // Create Server
 let server = new Hapi.Server({
     app: {
@@ -47,7 +50,9 @@ server.connection({
 // Register All Plugins
 server.register(Plugins, function(err) {
     if (err) {
-        Logger.winstonLogger.error(err);
+        Logger.winstonLogger.error({
+            ERROR: error
+        });
         server.error('Error while loading plugins : ' + err);
     } else {
 
@@ -79,5 +84,5 @@ server.on('response', function(request) {});
 
 //Start Server
 server.start(function() {
-    console.log('Server running at: ' + server.info.uri);
+    Logger.winstonLogger.info(`Server running at ${server.info.uri}`);
 });
