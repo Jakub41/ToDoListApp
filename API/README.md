@@ -93,6 +93,63 @@ After the **Swagger** is open as an example you can open the user registration e
 
 ![Swagger Test](https://github.com/Jakub41/ToDoListApp/blob/master/API/doc/exampleSwagger.png)
 
+## API Structure
+
+**Directory Structure** is based on MVC model:
+
+- **Model**: It includes the schema fields that is to be stored in MongoDB along with their data type. We have three collections of MongoDB.  
+  
+  - TaskModel 
+  - UserModel 
+  - NoteModel 
+
+- **View/Routes:** It includes the details of the parameters required for an API. Swagger is also integrated in these files. Routes include task, user and note.
+
+- **Controller:** It handles or controls the request and reply to the server. When an API is called, every request goes to the specific controller of the route.
+
+**Modules Included:**
+
+- User module
+  
+  - Register user: With password
+  - Login user
+  - Get user details: Using access token
+  - Logout user: Destroys the access token generated at
+the time of login.
+
+- Task module
+  
+  - Create new task: Create a new task with the user access token
+  - Get task: See task(s) corresponding to a user
+  - Update task: This includes completing a task, deleting
+a task, changing the name and description, etc.
+
+- Note module
+  
+  - Create note: Create a note corresponding to a task
+  - Get note(s): Get note(s) for a task
+  - Update note: Includes deleting, completing, assigning to another task, etc.
+
+## Packages/Node Modules
+
+These are the Packages used in this project:
+
+- [bcrypt](https://www.npmjs.com/package/bcrypt): Used to encrypt the stored passwords. Once encrypted, it cannot be decrypted.
+- [bluebird](http://bluebirdjs.com/docs/api-reference.html): It is the external promise library.
+- [config](https://www.npmjs.com/package/config): It helps get configuration defined in config directory, contains .json files.
+- [hapi](https://hapijs.com/): It is the framework like express.
+- [hapi-swagger-next](https://www.npmjs.com/package/hapi-swagger-next):It helps integrate swagger in the app.
+- [inert](https://www.npmjs.com/package/inert): Static file and directory handlers plugin for hapi.js
+- [joi](https://www.npmjs.com/package/joi): Used to define schema of a request and validate the incoming params
+- [mongoose](https://www.npmjs.com/package/mongoose): It is a MongoDB object modeling tool designed to work in an asynchronous environment.
+- [path](https://www.npmjs.com/package/path): The path module provides utilities for working with file and directory paths.
+- [uuid](https://www.npmjs.com/package/uuid): It helps generated unique random string
+- [vision](https://www.npmjs.com/package/vision): Templates rendering plugin support for hapi.js
+- [Winston](https://www.npmjs.com/package/winston): A multi-transport async logging library for node.js
+
+
+ 
+
 
 
 
