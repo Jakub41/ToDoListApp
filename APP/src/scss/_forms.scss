@@ -1,0 +1,21 @@
+input.invalid,
+textarea.invalid {
+  border-color: $red !important;
+}
+
+.error-msg {
+  color: $red;
+  font-size: 0.85em;
+}
+
+.form-line {
+  margin: 1em 0;
+}
+
+.button-wrapper {
+  margin: 2em 0 1em;
+
+  button[type=submit] {
+    margin: 0;
+  }
+}

@@ -10,7 +10,7 @@
  * Ported by Bryce Neal.
  */
 
-var statusCodes = {};
+const statusCodes = {};
 
 statusCodes[exports.CREATED = 201] = "Created";
 statusCodes[exports.ACCEPTED = 202] = "Accepted";

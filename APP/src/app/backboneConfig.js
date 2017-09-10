@@ -3,16 +3,15 @@ import 'backbone.stickit';
 import 'backbone-validation';
 import Api from './api';
 
+// hack BB version to check it's working right
 Backbone.VERSION = '1.3.3_customed';
 
-const backboneSync = Backbone.sync;
-
+// inject our Api into BB ajax system
 Backbone.ajax = function() {
-    return Api.makeRequest.apply(Backbone.$, arguments);
+    return Api.makeRequest.apply(Api, arguments);
 };
 
-Backbone.ajaxSync = backboneSync;
-
+// Backbone validation error messages configure
 _.extend(Backbone.Validation.callbacks, {
     // Gets called when a previously invalid field in the
     // view becomes valid. Removes any error message.
@@ -27,13 +26,13 @@ _.extend(Backbone.Validation.callbacks, {
     // Gets called when a field in the view becomes invalid.
     // Adds a error message.
     invalid: function(view, attr, error, selector) {
-        var $input = view.$('[' + selector + '~="' + attr + '"]');
+        const $input = view.$('[' + selector + '~="' + attr + '"]');
 
         if ($input.length === 0) {
             return;
         }
 
-        var $msg = $input.parent().find('.error-msg');
+        const $msg = $input.parent().find('.error-msg');
 
         if ($msg.length === 0) {
             $msg = $input

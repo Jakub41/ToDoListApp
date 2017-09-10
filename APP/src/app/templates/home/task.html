@@ -1,0 +1,54 @@
+<div class="info">
+  <h3 class="title">
+    <span class="text"></span> <i class="fa fa-pencil edit-task" aria-hidden="true"></i>
+  </h3>
+  <div class="due-date"></div>
+
+  <p class="description"></p>
+</div>
+<div class="edit">
+  <form class="pure-form pure-form-stacked edit-task-form">
+        <div class="form-line">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name">
+        </div>
+
+        <div class="form-line">
+            <label for="description">Description</label>
+            <textarea name="description" id="description"></textarea>
+        </div>
+
+        <div class="form-line">
+            <label for="dueOn">Due date</label>
+            <input type="text" name="dueOn" id="dueOn">
+        </div>
+
+        <div class="button-wrapper">
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            <button type="button" class="pure-button cancel">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div class="notes-title">
+  Notes
+</div>
+
+<form class="pure-form add-note-form">
+    <div class="form-line">
+      <textarea id="note"></textarea>
+    </div>
+    <div class="button-wrapper">
+        <button type="submit" class="pure-button pure-button-primary">Submit</button>
+    </div>
+</form>
+
+<div class="notes"></div>
+
+<div class="check">
+  <div class="mark"></div>
+</div>
+
+<div class="remove">
+  <i class="fa fa-times" aria-hidden="true"></i>
+</div>

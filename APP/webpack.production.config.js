@@ -17,10 +17,7 @@ module.exports = {
             'Mn': 'backbone.marionette',
             'Noty': 'noty',
         }),
-        new webpack.SourceMapDevToolPlugin({
-            filename: '[name].js.map',
-        }),
-        new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(en)$/),
+        new webpack.optimize.UglifyJsPlugin({ minimize: true })
     ],
     module: {
         loaders: [{
