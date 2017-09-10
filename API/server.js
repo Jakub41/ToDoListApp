@@ -51,7 +51,7 @@ server.connection({
 server.register(Plugins, function(err) {
     if (err) {
         Logger.winstonLogger.error({
-            ERROR: error
+            ERROR: err
         });
         server.error('Error while loading plugins : ' + err);
     } else {
