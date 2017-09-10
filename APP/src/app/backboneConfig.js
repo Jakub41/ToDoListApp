@@ -26,13 +26,13 @@ _.extend(Backbone.Validation.callbacks, {
     // Gets called when a field in the view becomes invalid.
     // Adds a error message.
     invalid: function(view, attr, error, selector) {
-        const $input = view.$('[' + selector + '~="' + attr + '"]');
+        let $input = view.$('[' + selector + '~="' + attr + '"]');
 
         if ($input.length === 0) {
             return;
         }
 
-        const $msg = $input.parent().find('.error-msg');
+        let $msg = $input.parent().find('.error-msg');
 
         if ($msg.length === 0) {
             $msg = $input
