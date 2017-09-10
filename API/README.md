@@ -78,7 +78,8 @@ To test the end-points go to:
 All the end-points are listed here. 
 
 **Swagger View**:
-![Swagger View]()
+
+![Swagger View](https://github.com/Jakub41/ToDoListApp/blob/master/API/doc/swaggerView.png)
 
 **How To Test**:
 
@@ -90,7 +91,7 @@ After the **Swagger** is open as an example you can open the user registration e
     Then you will see an editable schema of the User Model where will be possible to try it out
     Fill with yours values and hit execute and have fun testing the API
 
-![Swagger Test]()
+![Swagger Test](https://github.com/Jakub41/ToDoListApp/blob/master/API/doc/exampleSwagger.png)
 
 
 

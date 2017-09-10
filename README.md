@@ -6,10 +6,10 @@ This project is about a To Do tasks organizer. The user can register/login, crea
 
 The backend is a RESTFUL API, built using NodeJS and MongoDB.
 
-More info here [API]()
+More info here [API](https://github.com/Jakub41/ToDoListApp/tree/master/API)
 
 ## The FrontEnd - Backbone.js
 
 The frontend is built with the framework Backbone.js.
 
-More info here [FrontEnd]()
+More info here [FrontEnd](https://github.com/Jakub41/ToDoListApp/tree/master/APP)
