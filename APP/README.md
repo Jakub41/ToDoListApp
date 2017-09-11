@@ -113,6 +113,26 @@ They are loaded from router. All nested views loaded in view directly. Data is s
 
 - [underscore.js](http://underscorejs.org/): Helper library 
 
+- [Datepicker](https://github.com/fengyuanchen/datepicker): A simple Jquery plugin
+
+**Dev Dependencies**:
+
+- [Babel](https://babeljs.io/): Js compiler for ES6 standard
+
+- [Del](https://www.npmjs.com/package/del): Delete files and folders using globs
+
+- [expect.js](https://github.com/Automattic/expect.js?files=1): Test toolkit
+
+- [Gulp](https://gulpjs.com/): task runner
+
+- [mocha](https://github.com/mochajs/mocha): Increase test coverage on Node.js and browser
+
+- [webpack](https://webpack.github.io/): Module Dependencies  
+
+- [sinon](http://sinonjs.org/): A tool for unit test
+
+- [yargs](https://github.com/yargs/yargs): A command line tool
+
 
 
 
