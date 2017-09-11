@@ -1,7 +1,7 @@
 'user strict';
 
-const mongoose = require('mongoose');
-const config = require('config');
+const mongoose = require('mongoose'),
+    config = require('config');
 
 const Logger = require('../lib/logger');
 mongoose.Promise = Promise;

@@ -17,15 +17,15 @@ if (
 process.env.NODE_CONFIG_DIR = __dirname + '/app/config/';
 
 /* Node Modlules */
-const Hapi = require('hapi');
-const config = require('config');
-const path = require('path');
-const promise = require('bluebird');
+const Hapi = require('hapi'),
+    config = require('config'),
+    path = require('path'),
+    promise = require('bluebird'),
 
-const Plugins = require('./app/plugins');
-const Routes = require('./app/routes');
-const Controllers = require('./app/controllers');
-const Logger = require('./app/lib/logger');
+    Plugins = require('./app/plugins'),
+    Routes = require('./app/routes'),
+    Controllers = require('./app/controllers'),
+    Logger = require('./app/lib/logger');
 
 // Create Server
 let server = new Hapi.Server({

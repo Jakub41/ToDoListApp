@@ -1,14 +1,14 @@
 // User Controller
 'use strict';
 
-const uuidv1 = require('uuid/v1');
-// For hash passwords - security
-const bcrypt = require('bcrypt');
-const utils = require('../../utils');
-const User = require('../models/userModel');
-const Logger = require('../lib/logger');
-const Constants = require('../config/constants');
-const statusCodes = require('../config/statusCodes');
+const uuidv1 = require('uuid/v1'),
+    // For hash passwords - security
+    bcrypt = require('bcrypt'),
+    utils = require('../../utils'),
+    User = require('../models/userModel'),
+    Logger = require('../lib/logger'),
+    Constants = require('../config/constants'),
+    statusCodes = require('../config/statusCodes');
 
 exports.registerUser = registerUser;
 exports.loginUser = loginUser;
@@ -125,20 +125,20 @@ function getUser(request, reply) {
                         flag: statusCodes.UNAUTHORIZED,
                         message: statusCodes.getStatusText(statusCodes.UNAUTHORIZED),
                         description: 'Invalid token'
-                    }
+                    };
                     return resolve(response);
                 }
                 let response = {
                     flag: statusCodes.OK,
                     message: statusCodes.getStatusText(statusCodes.OK),
                     user: user[0]
-                }
+                };
                 return resolve(response);
             })
             .catch(error => {
                 return reject(error);
             });
-    })
+    });
 }
 /**
  * Logout user using access token
@@ -175,5 +175,5 @@ function logoutUser(request, reply) {
             .catch(error => {
                 return reject(error);
             });
-    })
+    });
 }

@@ -1,16 +1,16 @@
 'use strict';
 
-const uuidv1 = require('uuid/v1');
-// For hash passwords - security
-const bcrypt = require('bcrypt');
-const utils = require('../../utils');
+const uuidv1 = require('uuid/v1'),
+    // For hash passwords - security
+    bcrypt = require('bcrypt'),
+    utils = require('../../utils'),
 
-const Task = require('../models/taskModel');
-const User = require('../models/userModel');
-const Note = require('../models/noteModel');
-const Logger = require('../lib/logger');
-const Constants = require('../config/constants');
-const statusCodes = require('../config/statusCodes');
+    Task = require('../models/taskModel'),
+    User = require('../models/userModel'),
+    Note = require('../models/noteModel'),
+    Logger = require('../lib/logger'),
+    Constants = require('../config/constants'),
+    statusCodes = require('../config/statusCodes');
 
 exports.postTask = postTask;
 exports.getTask = getTask;
