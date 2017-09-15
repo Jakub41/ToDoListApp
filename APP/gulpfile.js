@@ -9,7 +9,8 @@ const gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoPrefixer = require('gulp-autoprefixer'),
     del = require('del'),
-    path = require('path');
+    path = require('path'),
+    webserver = require('gulp-webserver');
 
 
 gulp.task(function clean(done) {
@@ -17,16 +18,20 @@ gulp.task(function clean(done) {
 });
 
 gulp.task(function copy() {
-    gulp.src(['src/fonts/*'])
-        .pipe(gulp.dest('public/fonts'));
 
     gulp.src([
             'node_modules/purecss/build/pure-min.css',
             'node_modules/noty/lib/noty.css',
-            'node_modules/@fengyuanchen/datepicker/dist/datepicker.min.css',
-            'src/scss/font-awesome.min.css',
+            'node_modules/font-awesome/css/font-awesome.min.css',
+            'node_modules/@fengyuanchen/datepicker/dist/datepicker.min.css'
         ])
         .pipe(gulp.dest('public/css'));
+
+    gulp.src([
+            'src/fonts/*', 'node_modules/font-awesome/fonts/fontawesome-webfont.woff2'
+        ])
+        .pipe(gulp.dest('public/fonts'));
+
     return gulp.src(['src/index.html'])
         .pipe(gulp.dest('public'));
 });
@@ -64,8 +69,13 @@ gulp.task(function jsProd() {
         .pipe(gulp.dest('public/js/'));
 });
 
+gulp.task('webserver', function() {
+    gulp.src('public')
+        .pipe(webserver());
+});
+
 gulp.task('default',
-    gulp.series('clean', 'copy', 'styles', 'js', function bindWatchers(done) {
+    gulp.series('clean', 'copy', 'styles', 'js', 'webserver', function bindWatchers(done) {
         const sassWatcher = gulp.watch('src/scss/**/*.scss', gulp.series('styles'));
         const jsWatcher = gulp.watch(['src/app/**/*.js', 'src/index.js', 'src/app/**/*.html'], gulp.series('js'));
     })
