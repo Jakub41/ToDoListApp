@@ -36,8 +36,15 @@ const RegisterView = Mn.View.extend({
             },
         });
 
+        this.on('error', this.errorHandler);
         // init validation
         Backbone.Validation.bind(this);
+    },
+
+    errorHandler: function(model_or_collection, res, opts) {
+        e.preventDefault();
+        this.$('#error').text(res.description || res.message || res.responseJSON.message);
+        this.$('#error').show();
     },
 
     register(e) {
@@ -58,12 +65,19 @@ const RegisterView = Mn.View.extend({
                         App.navigate('');
                     } else {
                         // error. show message
-                        new Noty({ text: res.message, type: 'error' }).show();
+                        //new Noty({ text: res.message, type: 'error' }).show();
+                        const description = (res.flag === 420) ? "Username is already taken, choose another" : res.message;
+                        res.description = description;
+                        this.trigger("error", this.model, res, {});
                     }
-                }, e => {
-                    new Noty({ text: e.responseJSON.message, type: 'error' }).show();
-                    console.log('error', e.responseJSON.statusCode, e.responseJSON.message);
+                }, (jqXHR, textStatus, errorThrown) => {
+                    this.trigger("error", this.model, { description: textStatus }, {});
                 });
+
+            //e => {
+            // new Noty({ text: e.responseJSON.message, type: 'error' }).show();
+            // console.log('error', e.responseJSON.statusCode, e.responseJSON.message);
+            //});
         }
     },
 
