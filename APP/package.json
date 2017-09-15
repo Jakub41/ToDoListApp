@@ -28,7 +28,7 @@
         "babel-preset-env": "^1.6.0",
         "del": "^3.0.0",
         "expect.js": "^0.3.1",
-        "gulp": "github:gulpjs/gulp#4.0",
+        "gulp": "gulpjs/gulp#c4d219e",
         "gulp-autoprefixer": "^4.0.0",
         "gulp-plumber": "^1.1.0",
         "gulp-rename": "^1.2.2",

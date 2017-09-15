@@ -95,7 +95,7 @@ function loginUser(request, reply) {
             user.access_token = uuidv1();
             let updateInfo = {
                 access_token: user.access_token
-            }
+            };
             await User.findOneAndUpdate(filters, updateInfo)
             let response = {
                 flag: statusCodes.OK,
@@ -117,7 +117,7 @@ function getUser(request, reply) {
     return new Promise((resolve, reject) => {
         let filters = {
             access_token: request.headers.authorization
-        }
+        };
         User.find(filters)
             .then(user => {
                 if (user.length === 0) {

@@ -23,6 +23,8 @@
         "inert": "^4.2.1",
         "joi": "^10.6.0",
         "mongoose": "^4.11.9",
+        "mongoose-beautiful-unique-validation": "^7.0.0",
+        "mongoose-unique-validator": "^1.0.6",
         "path": "^0.12.7",
         "uuid": "^3.1.0",
         "vision": "^4.1.1",

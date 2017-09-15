@@ -47,19 +47,33 @@ This will install with **Root** privileges.
 
 For **Windows** users please check online the documentation about the issues you could have.
 
-To **build** the **APP** use the next command:
+To **build** the **APP** and **run** in one stance use the next command:
 
-    gulp or gulp prod
+    gulp
 
-This will build the APP into the **Public** folder.
+This will build the APP into the **Public** folder and run at this URL:
 
-To **run** the **APP**:
+    http://localhost:8000
+
+To **buld** the **APP** only and for **production**:
+
+    gulp prod
+
+This will build a **production** version of the app under the folder **Public**.
+
+Then to **run**:  
 
     npm run serve
 
 This should start the **static server** at this URL:
 
     http://localhost:9080/
+
+If you want to clean the **Public** folder run this command:
+
+    gulp clean
+
+It will clean all the content of the **Public** folder
 
 ## The APP structure
 
@@ -124,6 +138,14 @@ They are loaded from router. All nested views loaded in view directly. Data is s
 - [expect.js](https://github.com/Automattic/expect.js?files=1): Test toolkit
 
 - [Gulp](https://gulpjs.com/): task runner
+  
+  - [autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
+  - [plumber](https://www.npmjs.com/package/gulp-plumber)
+  - [rename](https://www.npmjs.com/package/gulp-rename)
+  - [sass](https://www.npmjs.com/package/gulp-sass)
+  - [sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
+  - [util](https://www.npmjs.com/package/gulp-util)
+  - [webserver](https://www.npmjs.com/package/gulp-webserver)
 
 - [mocha](https://github.com/mochajs/mocha): Increase test coverage on Node.js and browser
 
