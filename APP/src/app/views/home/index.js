@@ -8,128 +8,128 @@ import datepicker from '@fengyuanchen/datepicker';
 
 // Homepage view
 const HomeView = Mn.View.extend({
-  className: 'home-page',
-  collection: new TaskCollection(),
-  model: new TaskModel(),
+    className: 'home-page',
+    collection: new TaskCollection(),
+    model: new TaskModel(),
 
-  // specify view region to render blocks there later
-  regions: {
-    'toDoListRegion': '.to-do-list'
-  },
-
-  template: _.template(Template),
-
-  // bind events
-  events: {
-    'submit .add-task-form': 'addToDo',
-    'click .open-new-to-do': 'showAddTodoForm',
-    'click .close-new-to-do': 'closeAddTodoForm',
-    'click .logout': 'logout',
-  },
-
-  // set data bindings
-  bindings: {
-    '.add-task-form #name': 'name',
-    '.add-task-form #description': 'description',
-    '.add-task-form #dueOn': 'dueOn',
-  },
-
-  viewBindings: {
-    '.new-to-do': {
-      observe: 'addFormIsVisible',
-      visible: (value) => !!value
+    // specify view region to render blocks there later
+    regions: {
+        'toDoListRegion': '.to-do-list'
     },
-    '.open-new-to-do': {
-      observe: 'addFormIsVisible',
-      visible: (value) => !value
+
+    template: _.template(Template),
+
+    // bind events
+    events: {
+        'submit .add-task-form': 'addToDo',
+        'click .open-new-to-do': 'showAddTodoForm',
+        'click .close-new-to-do': 'closeAddTodoForm',
+        'click .logout': 'logout',
     },
-  },
 
-  initialize() {
-    // fetch data
-    this.collection.fetch();
+    // set data bindings
+    bindings: {
+        '.add-task-form #name': 'name',
+        '.add-task-form #description': 'description',
+        '.add-task-form #dueOn': 'dueOn',
+    },
 
-    // init tasks list view
-    this.taskCollectionView = new TaskCollectionView({
-      collection: this.collection,
-    });
+    viewBindings: {
+        '.new-to-do': {
+            observe: 'addFormIsVisible',
+            visible: (value) => !!value
+        },
+        '.open-new-to-do': {
+            observe: 'addFormIsVisible',
+            visible: value => !value
+        },
+    },
 
-    this.viewModel = new Backbone.Model({
-      addFormIsVisible: false,
-    });
+    initialize() {
+        // fetch data
+        this.collection.fetch();
 
-    // init validation
-    Backbone.Validation.bind(this);
-  },
+        // init tasks list view
+        this.taskCollectionView = new TaskCollectionView({
+            collection: this.collection,
+        });
 
-  // shows add task form animated
-  showAddTodoForm() {
-    this.viewModel.set('addFormIsVisible', true);
-    this.$('.new-to-do').addClass('fade-in');
+        this.viewModel = new Backbone.Model({
+            addFormIsVisible: false,
+        });
 
-    _.delay(() => {
-      this.$('.new-to-do').removeClass('fade-in');
-    }, 500);
-  },
+        // init validation
+        Backbone.Validation.bind(this);
+    },
 
-  // hides add task form animated
-  closeAddTodoForm() {
-    this.$('.new-to-do').addClass('fade-out');
+    // shows add task form animated
+    showAddTodoForm() {
+        this.viewModel.set('addFormIsVisible', true);
+        this.$('.new-to-do').addClass('fade-in');
 
-    _.delay(() => {
-      this.viewModel.set('addFormIsVisible', false);
-      this.$('.new-to-do').removeClass('fade-out');
-    }, 500);
-  },
+        _.delay(() => {
+            this.$('.new-to-do').removeClass('fade-in');
+        }, 500);
+    },
 
-  // catch form submit and saves new task model
-  addToDo(e) {
-    // prevend browser form submit
-    e.preventDefault();
+    // hides add task form animated
+    closeAddTodoForm() {
+        this.$('.new-to-do').addClass('fade-out');
 
-    // model validation goes there
-    // if invalid - form errors will be shown
-    if (this.model.isValid(true)) {
-      const modelData = this.model.toJSON();
-      // send server request
-      this.model.save().then(res => {
-        if (res.flag === 201) {
-          // success
-          this.collection.add(res.taskId);
+        _.delay(() => {
+            this.viewModel.set('addFormIsVisible', false);
+            this.$('.new-to-do').removeClass('fade-out');
+        }, 500);
+    },
 
-          new Noty({ text: 'Task created', type: 'success' }).show();
+    // catch form submit and saves new task model
+    addToDo(e) {
+        // prevend browser form submit
+        e.preventDefault();
 
-          this.model.clear().set(this.model.defaults);
-          this.closeAddTodoForm();
-        } else {
-          new Noty({ text: res.message, type: 'error' }).show();
-          this.model.clear().set(modelData);
+        // model validation goes there
+        // if invalid - form errors will be shown
+        if (this.model.isValid(true)) {
+            const modelData = this.model.toJSON();
+            // send server request
+            this.model.save().then(res => {
+                if (res.flag === 201) {
+                    // success
+                    this.collection.add(res.taskId);
+
+                    new Noty({ text: 'Task created', type: 'success' }).show();
+
+                    this.model.clear().set(this.model.defaults);
+                    this.closeAddTodoForm();
+                } else {
+                    new Noty({ text: res.message, type: 'error' }).show();
+                    this.model.clear().set(modelData);
+                }
+            }, e => new Noty({ text: e.responseJSON.message, type: 'error' }).show());
         }
-      }, e => new Noty({ text: e.responseJSON.message, type: 'error' }).show());
+    },
+
+    logout() {
+        // send logout request
+        Api.post('user/logout').then(res => {
+            if (res.flag !== 200) {
+                new Noty({ text: res.message, type: 'error' }).show();
+            }
+            new Noty({ text: 'Good bye', type: 'success' }).show();
+            localStorage.removeItem('access_token');
+            App.navigate('login');
+        }, e => new Noty({ text: e.responseJSON.message, type: 'error' }).show());
+    },
+
+    onRender() {
+        // show list view
+        this.showChildView('toDoListRegion', this.taskCollectionView);
+        // init bindings
+        this.stickit();
+        this.stickit(this.viewModel, this.viewBindings);
+
+        this.$('.add-task-form #dueOn').datepicker();
     }
-  },
-
-  logout() {
-    // send logout request
-    Api.post('user/logout').then(res => {
-      if (res.flag !== 200) {
-        new Noty({ text: res.message, type: 'error' }).show();
-      }
-      new Noty({ text: 'Good bye', type: 'success' }).show();
-      localStorage.removeItem('access_token');
-      App.navigate('login');
-    }, e => new Noty({ text: e.responseJSON.message, type: 'error' }).show());
-  },
-
-  onRender() {
-    // show list view
-    this.showChildView('toDoListRegion', this.taskCollectionView);
-    // init bindings
-    this.stickit();
-    this.stickit(this.viewModel, this.viewBindings);
-
-    this.$('.add-task-form #dueOn').datepicker();
-  }
 });
 
 export default HomeView;
